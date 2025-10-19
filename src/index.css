@@ -1,38 +1,74 @@
+@import "normalize.css";
+
 :root {
+  /* typography */
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Prefer using CSS variables for theming */
+  color-scheme: light dark;
+
+  /* Light theme defaults */
+  --bg: #ffffff;
+  --text: #213547;
+  --muted: rgba(0, 0, 0, 0.6);
+  --accent: #646cff;
+  --accent-hover: #1a22c8;
+  --button-bg: #810000;
+  --button-text: #ffffff;
+  --surface: #f7f7f8;
+}
+
+:root[data-theme="dark"],
+:root.dark,
+[data-theme="dark"] {
+  --bg: #242424;
+  --text: rgba(255, 255, 255, 0.87);
+  --muted: rgba(255, 255, 255, 0.7);
+  --accent: #da7878;
+  --accent-hover: #c03636;
+  --button-bg: #810000;
+  --button-text: #ffffff;
+  --surface: #1a1a1a;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--accent);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--accent-hover);
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  place-items: start;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  margin: 0.2em;
+}
+
+h2,
+h3 {
+  margin: 0;
+}
+
+p {
+  margin: 0.1rem;
 }
 
 button {
@@ -42,27 +78,28 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, transform 0.12s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+/* Dark theme overrides via data-theme on documentElement */
+
+/* Respect system preference as a fallback */
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+  :root:not([data-theme]) {
+    --bg: #ffffff;
+    --text: #213547;
+    --button-bg: #810000;
+    --button-text: #ffffff;
   }
 }
