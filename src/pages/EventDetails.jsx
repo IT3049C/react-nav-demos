@@ -1,17 +1,18 @@
 import "./EventDetails.css";
-import springInnovationFair from "../assets/spring-innovation-fair.png";
+import { campusEvents } from "../data/events";
+import { Link, useParams } from "react-router-dom";
 
 export function EventDetails() {
-  const event = {
-    id: 1,
-    name: `Spring Innovation Fair`,
-    description: `The Spring Innovation Fair is a showcase of student innovation and entrepreneurship. It is a great opportunity to learn about the different projects and ideas that students are working on.`,
-    date: `2026-04-18`,
-    time: `11:00 AM - 3:00 PM`,
-    location: `Student Center Plaza`,
-    image: springInnovationFair,
-    tags: [`Showcase`, `Networking`, `Technology`],
-  };
+  const { eventId } = useParams();
+  const event = campusEvents.find((e) => e.id == eventId);
+
+  if (!event)
+    return (
+      <>
+        <p>Event does not exist</p>
+        <Link to="/events">Go back to the events list</Link>
+      </>
+    );
 
   return (
     <div className="event-details-container">
