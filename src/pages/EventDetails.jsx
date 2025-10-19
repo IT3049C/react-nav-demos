@@ -10,6 +10,7 @@ export function EventDetails() {
     time: `11:00 AM - 3:00 PM`,
     location: `Student Center Plaza`,
     image: springInnovationFair,
+    tags: [`Showcase`, `Networking`, `Technology`],
   };
 
   return (
@@ -30,6 +31,18 @@ export function EventDetails() {
         {/* Details Section */}
         <div className="details-section">
           <p className="event-description">{event.description}</p>
+
+          {/* Tags Section */}
+          <div className="tags-section">
+            <h3 className="tags-title">Tags</h3>
+            <div className="tags-list">
+              {event.tags.map((tag, index) => (
+                <span key={index} className="tag">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
 
           <div className="details-list">
             <div className="detail-item">
