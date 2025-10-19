@@ -1,13 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import { applySavedTheme } from "../utils/theme";
 import "./Settings.css";
 import { useState } from "react";
 
 export function Settings() {
   const [theme, setTheme] = useState(localStorage.getItem(`theme`) || `light`);
+  const navigate = useNavigate();
 
   function handleSave() {
     localStorage.setItem(`theme`, theme);
     applySavedTheme();
+    navigate(`/`);
   }
 
   return (
