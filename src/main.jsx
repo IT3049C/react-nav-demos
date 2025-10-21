@@ -8,21 +8,34 @@ import { Events } from "./pages/Events";
 import { EventDetails } from "./pages/EventDetails";
 import { Settings } from "./pages/Settings";
 import { NotFound } from "./pages/NotFound";
+import { LoginPage } from "./pages/LoginPage";
+import { RequireAuth } from "./auth/RequireAuth";
+import { AuthProvider } from "./auth/AuthProvider";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
       { path: `/`, element: <Home /> },
+      { path: `/login`, element: <LoginPage /> },
       { path: `/about`, element: <About /> },
       { path: `/events`, element: <Events /> },
       { path: `/events/:eventId`, element: <EventDetails /> },
-      { path: `/settings`, element: <Settings /> },
+      {
+        path: `/settings`,
+        element: (
+          <RequireAuth>
+            <Settings />
+          </RequireAuth>
+        ),
+      },
       { path: `*`, element: <NotFound /> },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={router} />
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );
