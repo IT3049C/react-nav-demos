@@ -29,7 +29,9 @@ jobs:
         run: npm ci
 
       - name: Build App
-        run: npm run build
+        run: |
+          REPO_NAME="(echo ${{ github.repository }} | cut -d'/' -f2)"
+          npm run build -- --base="/$REPO_NAME/"
 
       - name: Create 404.html from index.html
         run: cp dist/index.html dist/404.html
